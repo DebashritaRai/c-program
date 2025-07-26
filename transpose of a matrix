@@ -1,0 +1,70 @@
+//TRANSPOSE
+
+#include <stdio.h>
+#include <stdlib.h>
+//allocate matrix
+void read_matrix(int**,int,int);
+void print_matrix(int**,int,int);
+void trans(int**,int**,int ,int );
+//input matrix
+void inputM(int **matrix,int r,int c)
+{
+    int i,j;
+    for (i=0;i<r;i++)
+    {
+        for (j=0;j<c;j++)
+        {
+            printf("print [%d][%d] element",i,j);
+            scanf("%d",&matrix[i][j]);
+        }
+    }
+}
+
+void trans(int **a,int **b,int r,int c)
+{
+    int i,j;
+    for (i=0;i<r;i++)
+    {
+        for (j=0;j<c;j++)
+            b[j][i]=a[i][j];
+    }    
+    printf("transpose is:\n");
+}
+//print matrix
+void printM(int **matrix,int r,int c)
+{
+    int i,j;
+    printf("Matrix is \n");
+    for (i=0;i<r;i++)
+    {
+        for (j=0;j<c;j++)
+        {
+            printf("%d\t",matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
+int main()
+{
+    int i,**a,**b,r,c;
+    printf("enter rows and columns of matrix:");
+    scanf("%d %d", &r,&c);
+    a=(int**)malloc(r*sizeof(int*));
+    for (i=0;i<r;i++)
+    {
+        a[i]=(int*)malloc(c*sizeof(int));
+    }
+    b=(int**)malloc(c*sizeof(int*));
+    for (i=0;i<c;i++)
+        b[i]=(int*)malloc(r*sizeof(int));
+    inputM(a,r,c);
+    trans(a,b,r,c);
+    printf("original:");
+    printM(a,r,c);
+    trans(a,b,r,c);
+    printf("trans:");
+    printM(b,c,r);
+    return 0;
+}
