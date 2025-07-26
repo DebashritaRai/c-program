@@ -1,0 +1,103 @@
+#include <stdio.h>
+#include <stdlib.h>
+//allocate matrix
+void read_matrix(int**,int,int);
+void print_matrix(int**,int,int);
+void mult(int**,int**,int**,int,int,int);
+
+/*int** allocateM(int r,int c)
+{
+    int **matrix=(int**)malloc(r*sizeof(int));
+    int i;
+    for (i=0;i<r;i++)
+    {
+        matrix[i]=(int*)malloc(c*sizeof(int));
+    }
+    return matrix;
+}*/
+
+//input matrix
+void inputM(int **matrix,int r,int c)
+{
+    int i,j;
+    for (i=0;i<r;i++)
+    {
+        for (j=0;j<c;j++)
+        {
+            printf("print [%d][%d] element",i,j);
+            scanf("%d",&matrix[i][j]);
+        }
+    }
+}
+
+
+//print matrix
+void printM(int **matrix,int r,int c)
+{
+    int i,j;printf("Matrix is \n");
+    for (i=0;i<r;i++)
+    {
+        for (j=0;j<c;j++)
+        {
+            printf("%d\t",matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
+//multiply 2 matrixes
+void mult(int **ma,int **mb,int **mc,int r1,int c1,int c2)
+{
+    int i,j,k;
+    for (i=0;i<r1;i++)
+    {
+        for (j=0;j<c2;j++)
+        {
+            mc[i][j]=0;
+            for (k=0;k<c1;k++)
+            {
+                mc[i][j]+= ma[i][k]*mb[k][j];
+            }
+        }
+    }
+    printf("Resultant ");
+    //return mc;
+}
+
+int main()
+{
+    int i,**a,**b,**c,r1,r2,c1,c2;
+    printf("enter rows and columns of matrix 1:");
+    scanf("%d %d", &r1,&c1);
+    printf("enter rows and columns of matrix 2:");
+    scanf("%d %d", &r2,&c2);
+    if(c1!=r2)
+    {
+        printf("not possible");
+        return 0;
+    }
+    a=(int**)malloc(r1*sizeof(int*));
+    for (i=0;i<r1;i++)
+    {
+        a[i]=(int*)malloc(c1*sizeof(int));
+    }
+    b=(int**)malloc(r2*sizeof(int*));
+    for (i=0;i<r2;i++)
+    {
+        b[i]=(int*)malloc(c2*sizeof(int));
+    }
+    c=(int**)malloc(r1*sizeof(int*));
+    for (i=0;i<r1;i++)
+        c[i]=(int*)malloc(c2*sizeof(int));
+    /*int **m1=allocateM(r1,c1);
+    int **m2=allocateM(r2,c2);*/
+    inputM(a,r1,c1);
+    inputM(b,r2,c2);
+    printM(a,r1,c1);
+    printM(b,r2,c2);
+    mult(a,b,c,r1,c1,c2);
+    printM(c,r1,c2);
+    //int **m3=allocateM(r1,c2);
+    return 0;
+}
